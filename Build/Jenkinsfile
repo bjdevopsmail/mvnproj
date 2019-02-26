@@ -1,0 +1,30 @@
+import hudson.model.*
+import hudson.EnvVars
+import groovy.json.JsonSlurperClassic
+import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
+import java.net.URL
+ 
+node{
+    
+    
+ echo "checking project "
+ 
+ 
+ 
+ checkout([$class: 'GitSCM',
+ branches: [[name: '*/master']],
+ doGenerateSubmoduleConfigurations: false, 
+ extensions: [], 
+ submoduleCfg: [], 
+ userRemoteConfigs: [[credentialsId: '6645cfb2-47ca-440c-b8bd-0afe533cc299', url: 'https://github.com/bjdevopsmail/maven-project.git']]])
+
+    
+   echo "building project"
+    
+sh"""
+mvn clean
+mvn package"""
+
+
+}
